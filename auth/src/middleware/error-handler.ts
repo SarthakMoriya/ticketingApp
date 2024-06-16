@@ -7,8 +7,8 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("HERE")
   if (err instanceof CustomError) {
-    console.log("Handling Database Connection error");
     return res.status(err.statusCode).json({ errors: err.serializeErrors() });
   }
   return res
