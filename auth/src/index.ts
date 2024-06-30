@@ -7,10 +7,16 @@ import signupUserRouter from "./routes/signup";
 import { errorHandler } from "./middleware/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 const app = express();
 app.use(cors());
+app.set('trust proxy',true); //to make sure that ingress is used properly telling our app 
 app.use(express.json());
+app.use(cookieSession({
+  signed:false, // donot encrypt as jwt is already encrypted
+  secure:true // only https
+}))
 
 app.use(signupUserRouter);
 app.use(currentUserRouter);
